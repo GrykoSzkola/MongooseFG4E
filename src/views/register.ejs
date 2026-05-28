@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<div>
+    <div>
+        <h2>Rejestracja</h2>
+        
+        <% if (typeof errors !== 'undefined' && errors.length) { %>
+            <% errors.forEach(error => { %>
+                <div><%= error %></div>
+            <% }); %>
+        <% } %>
+        <% if (success_msg && success_msg.length) { %>
+            <div><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg && error_msg.length) { %>
+            <div><%= error_msg %></div>
+        <% } %>
+        
+        <form action="/register" method="POST">
+            <div>
+                <label for="username">Nazwa uzytkownika (min. 3 znaki):</label>
+                <input type="text" id="username" name="username" value="<%= typeof username !== 'undefined' ? username : '' %>" required>
+            </div>
+            
+            <div>
+                <label for="petName">Imie zwierzaka (opcjonalne):</label>
+                <input type="text" id="petName" name="petName" value="<%= typeof petName !== 'undefined' ? petName : '' %>" >
+            </div>
+            
+            <div>
+                <label for="password">haslo:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            
+            <button type="submit">Zarejestruj się</button>
+        </form>
+        
+        <p><a href="/login">Zaloguj się</a></p>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

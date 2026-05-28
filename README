@@ -1,0 +1,80 @@
+# Mini-CMS (EJS + Express)
+
+Lekki przykład aplikacji CMS zbudowany przy użyciu Node.js, Express i EJS.
+Pozwala na przeglądanie listy artykułów, podgląd pojedynczego artykułu oraz
+tworzenie nowych wpisów zapisywanych w pliku JSON (`/data/articles.json`).
+
+## Najważniejsze cechy
+
+- Prosty system artykułów (listowanie, podgląd, tworzenie)
+- Szablony widoków w EJS (`views/articles/*`)
+- Dane przechowywane lokalnie w `data/articles.json`
+- Minimalna, przejrzysta struktura projektu — dobrze nadaje się do nauki
+
+## Wymagania
+
+- Node.js (zalecane v16+)
+- npm (do uruchamiania skryptów)
+
+## Szybki start
+
+1. Zainstaluj zależności (dostępne skrypty w `package.json` automatyzują część kroków):
+
+```bash
+npm install
+# lub (zgodnie ze skryptem projektu) npm prepare
+```
+
+2. Uruchom aplikację:
+
+```bash
+npm start
+# uruchomi: node src/server.js
+```
+
+3. Otwórz przeglądarkę: http://localhost:3000 (domyślny port ustawiony w `src/server.js`)
+
+Opcjonalnie — w trakcie rozwoju możesz użyć `nodemon` (zainstalowanego globalnie
+lub jako devDependency) i uruchomić `nodemon src/server.js` dla automatycznego
+restartu serwera przy zmianach.
+
+## Endpoints (ważne trasy)
+
+- GET / — lista artykułów
+- GET /articles/new — formularz tworzenia nowego artykułu
+- POST /articles — zapis nowego artykułu (parsuje body: `title`, `content`, `author`)
+- GET /articles/:slug — podgląd artykułu po slug
+
+## Struktura projektu (skrót)
+
+- `src/` — kod źródłowy aplikacji
+	- `server.js` — punkt wejścia aplikacji
+	- `app.js` — konfiguracja Express i middleware
+	- `routes/` — definicje tras
+	- `controllers/` — logika kontrolerów (renderowanie widoków, walidacja)
+	- `services/` — logika aplikacji (np. generowanie slugów)
+	- `models/` — warstwa dostępu do danych (zapis/odczyt JSON)
+- `views/` — szablony EJS (widoki)
+- `public/` — zasoby statyczne (CSS, obrazki)
+- `data/articles.json` — lokalne magazynowanie artykułów
+
+## Jak dodawać/zarządzać artykułami
+
+- Możesz dodać artykuł przez formularz pod `GET /articles/new`.
+- Artykuły są zapisywane w `data/articles.json`. Możesz też bezpośrednio
+	edytować ten plik, ale pamiętaj, żeby zachować poprawny format JSON.
+
+## Dobre praktyki i uwagi
+
+- Kopia zapasowa: plik `data/articles.json` jest jedynym źródłem danych —
+	przed masową edycją wykonaj kopię zapasową.
+- Walidacja: aplikacja wykonuje podstawową walidację po stronie serwera
+	(np. minimalna długość tytułu i treści).
+- Produkcja: do zastosowań produkcyjnych rozważ podmianę zapisu do pliku
+	na prawdziwą bazę danych oraz dodanie mechanizmów autoryzacji i sanitizacji wejścia.
+
+## Licencja
+
+Projekt jest udostępniony na licencji GNU GPLv3. Szczegóły w pliku `LICENSE`.
+
+Modyfikacje i dystrybucja: zobacz `LICENSE`.

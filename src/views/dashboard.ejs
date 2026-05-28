@@ -1,0 +1,90 @@
+<%- include('partials/header') %>
+<head>
+    <meta http-equiv="refresh" content="5">
+</head>
+<div>
+    <div>
+        <div>
+            <h2>pet: <%= pet.name %></h2>
+            <p>Utworzony: <%= pet.createdAt.toLocaleDateString('pl-PL') %></p>
+        </div>
+        
+        <% if (success_msg && success_msg.length) { %>
+            <div><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg && error_msg.length) { %>
+            <div><%= error_msg %></div>
+        <% } %>
+        
+        <% if (statusMessages && statusMessages.length) { %>
+            <div>
+                <% statusMessages.forEach(msg => { %>
+                    <div><%= msg %></div>
+                <% }); %>
+            </div>
+        <% } %>
+        
+        <div>
+            <div>
+                <div>
+                    <span>Glod: <%= pet.hunger %>%</span>
+                    <% if (pet.hunger >= 80) { %> <span>⚠️</span> <% } %>
+                </div>
+                <div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+                    <div style="width: <%= pet.hunger %>%; height: 20px; background-color: #FF9800;"></div>
+                </div>
+            </div>
+            
+            <div>
+                <div>
+                    <span>Szczescie: <%= pet.happiness %>%</span>
+                    <% if (pet.happiness <= 20) { %> <span>⚠️</span> <% } %>
+                </div>
+                <div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+                    <div style="width: <%= pet.happiness %>%; height: 20px; background-color: #4CAF50;"></div>
+                </div>
+            </div>
+            
+            <div>
+                <div>
+                    <span>Energia: <%= pet.energy %>%</span>
+                    <% if (pet.energy <= 20) { %> <span>⚠️</span> <% } %>
+                </div>
+                <div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+                    <div style="width: <%= pet.energy %>%; height: 20px; background-color: #2196F3;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <form action="/pet/feed" method="POST">
+                <button type="submit" <%= isStarving ? 'style="background:#ff6b6b"' : '' %>>
+                    Nakarm
+                </button>
+            </form>
+            
+            <form action="/pet/play" method="POST">
+                <button type="submit" <%= isExhausted ? 'disabled' : '' %>>
+                    Baw się
+                </button>
+            </form>
+            
+            <form action="/pet/sleep" method="POST">
+                <button type="submit">
+                    Spij
+                </button>
+            </form>
+        </div>
+        
+        <% if (isExhausted) { %>
+            <div>⚠️ Zwierzak jest wyczerpany! Nie moze sie bawić, dopoki nie odpocznie.</div>
+        <% } %>
+        <% if (isStarving) { %>
+            <div>⚠️ Zwierzak jest bardzo glodny!</div>
+        <% } %>
+        
+
+    </div>
+</div>
+
+<%- include('partials/footer') %>

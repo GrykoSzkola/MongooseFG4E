@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if (typeof autoRefresh !== 'undefined' && autoRefresh) { %>
+        <meta http-equiv="refresh" content="5">
+    <% } %>
+    <title>Virtual Pet - Twój wirtualny przyjaciel</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Virtual Pet</h1>
+            </div>
+            <% if (user) { %>
+            <div class="nav-links">
+                <span>Witaj, <%= user.username %>!</span>
+                <a href="/pet/dashboard">Moj pet</a>
+                <a href="/logout">Wyloguj</a>
+            </div>
+            <% } else { %>
+            <div class="nav-links">
+                <a href="/login">Logowanie</a>
+                <a href="/register">Rejestracja</a>
+            </div>
+            <% } %>
+        </div>
+    </nav>
+    <main>
